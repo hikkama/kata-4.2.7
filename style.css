@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #ff7e55, #ed6e89);
+}
+
+.container {
+    max-width: 450px;
+    margin: 150px auto;
+}
+
+.wrapper {
+    background: #fecdcb;
+    width: 100%;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+}
+
+.search-input {
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    font-size: 25px;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+    background-color: #fecdcb;
+    color: #da4a2a;
+}
+
+.search-input::placeholder {
+    color: #da4a2a;
+}
+
+.autocomplete-box {
+    background-color: #fecdcb;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.autocomplete-box li {
+    width: 100%;
+    list-style: none;
+    padding: 8px 13px;
+    background-color: #fecdcb;
+    border-bottom: 1px solid #ee6f88;
+    color: #da4a2a;
+    font-size: 18px;
+}
+
+.autocomplete-box li:last-child{
+    border-bottom: 0;
+}
+
+.autocomplete-box li:hover{
+    background-color: #ee6f88;
+    color: #fff;
+    transition: .2s background-color linear;
+    cursor: pointer;
+}
+
+.result-box {
+    margin-top: 45px;
+    background-color: #fecdcb;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.repo-info {
+    color: #da4a2a;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ee6f88;
+}
+
+.repo-info:last-child {
+    border-bottom: 0;
+}
+
+
+.icon {
+    color: #da4a2a;
+    font-size: 40px;
+    cursor:pointer;
+}

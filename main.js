@@ -14,22 +14,26 @@ searchInput.addEventListener('keyup', e => {
 
 
 async function sendRequest(request, repoToShow = 5) {
-  return await fetch(`https://api.github.com/search/repositories?q=${request}&per_page=${repoToShow}`)
-    .then(response => response.json())
-    .then(data => {
+  const response = await fetch(`https://api.github.com/search/repositories?q=${request}&per_page=${repoToShow}`)
+  const data = await response.json()
+
+  autoCompleteBox.innerHTML = '';
+
+  const fragment = document.createDocumentFragment();
+
+  data.items.forEach(item => {
+    const newSearchItem = createSearchListItem(item)
+
+    newSearchItem.addEventListener('click', () => {
+      searchInput.value = ''
       autoCompleteBox.innerHTML = '';
-      const fragment = document.createDocumentFragment();
-      data.items.forEach(item => {
-        const newSearchItem = createSearchListItem(item)
-        newSearchItem.addEventListener('click', () => {
-          searchInput.value = ''
-          autoCompleteBox.innerHTML = '';
-          createNewRepo(item)
-        })
-        fragment.appendChild(newSearchItem)
-      })
-      autoCompleteBox.appendChild(fragment)
+      createNewRepo(item)
     })
+
+    fragment.appendChild(newSearchItem)
+  })
+
+  autoCompleteBox.appendChild(fragment)
 }
 
 function createSearchListItem(item) {
@@ -43,23 +47,22 @@ function createSearchListItem(item) {
 function createNewRepo(repoData) {
   const repoContainer = document.createElement('div');
   const repoInfo = document.createElement('div');
-  const repoTitle = document.createElement('p');
-  const repoOwner = document.createElement('p');
-  const repoStars = document.createElement('p');
-  const repoRemoveBtn = document.createElement('i');
+  repoInfo.insertAdjacentHTML('beforeend',
+    `<div>Name: ${repoData.name}</div>
+          <div>Owner: ${repoData.owner.login}</div>
+          <div>Stars: ${repoData.stargazers_count}</div>`)
 
+  const repoRemoveBtn = document.createElement('button');
+  const repoRemoveIcon = document.createElement('i');
   repoContainer.classList.add('repo-info')
 
-  repoTitle.innerHTML = `Name: ${repoData.name}`
-  repoOwner.innerHTML = `Owner: ${repoData.owner.login}`
-  repoStars.innerHTML = `Stars: ${repoData.stargazers_count}`
-  repoRemoveBtn.classList.add('fa-solid', 'fa-xmark', 'icon')
+  repoRemoveBtn.classList.add('btn')
+  repoRemoveIcon.classList.add('fa-solid', 'fa-xmark', 'icon')
 
-  repoInfo.appendChild(repoTitle);
-  repoInfo.appendChild(repoOwner);
-  repoInfo.appendChild(repoStars);
   repoContainer.appendChild(repoInfo);
+  repoRemoveBtn.appendChild(repoRemoveIcon);
   repoContainer.appendChild(repoRemoveBtn);
+
 
   resultBox.appendChild(repoContainer)
 

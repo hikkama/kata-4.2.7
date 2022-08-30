@@ -88,6 +88,10 @@ body {
     border-bottom: 0;
 }
 
+.btn {
+    background-color: inherit;
+    border: none;
+}
 
 .icon {
     color: #da4a2a;
